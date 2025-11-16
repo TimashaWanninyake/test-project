@@ -14,7 +14,12 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
-load_dotenv("../.env")
+load_dotenv()
+MONGO_URI = os.getenv('MONGODB_URI')
+DATABASE_NAME = os.getenv('DATABASE_NAME')
+print("Loaded environment variables from .env file")
+print(f"MONGODB_URI: {os.getenv('MONGODB_URI')}")
+print(f"DATABASE_NAME: {os.getenv('DATABASE_NAME')}")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'analytics',
-    'debug_toolbar',
+    # 'debug_toolbar',
 ]
 
 REST_FRAMEWORK = {
@@ -56,7 +61,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -93,12 +98,12 @@ WSGI_APPLICATION = 'intern_logbook_analysis.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -146,4 +151,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MONGODB_SETTINGS = {
     'CONNECTION_STRING': os.getenv('MONGODB_URI'),
     'DATABASE_NAME': os.getenv('MONGODB_DB_NAME'),
+}
+
+# TalentHub API Configuration
+TALENTHUB_API_SETTINGS = {
+    'BASE_URL': os.getenv('TALENTHUB_API_BASE_URL', 'https://api.talenthub.com'),
+    'API_KEY': os.getenv('TALENTHUB_API_KEY'),
+    'TIMEOUT': 30,
 }

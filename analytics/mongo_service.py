@@ -17,8 +17,8 @@ class TalentHubMongoService:
     def connect(self):
         """Establish connection to MongoDB"""
         try:
-            connection_string = settings.MONGODB_SETTINGS['CONNECTION_STRING']
-            database_name = settings.MONGODB_SETTINGS['DATABASE_NAME']
+            connection_string = settings.MONGO_URI
+            database_name = settings.DATABASE_NAME
             
             self.client = MongoClient(connection_string)
             self.db = self.client[database_name]
